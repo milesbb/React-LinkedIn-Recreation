@@ -1,5 +1,7 @@
-# React LinkedIn
+# React LinkedIn Project Frontend
 
-LinkedIn clone team project for EPICODE/Strive School Front-End Build Week
+LinkedIn React recreation with redux and Node.js backend
 
-CRUD, REST, and API use, react + redux, bootstrap
+[Backend can be found here!](https://github.com/milesbb/BE-WK4-LinkedIn-Backend-Build-Week)
+
+CRUD, REST, and API use, React + redux, Bootstrap
