@@ -18,15 +18,15 @@ const PostItem = ({ post, onMyPosts }) => {
             <Image
               className="mr-2 mt-1"
               style={{ borderRadius: "25px", width: "50px", height: "50px" }}
-              src={post.user.image}
+              src={post.user[0].image}
               alt="prof pic"
             />
             <div>
               <h5 className="font-weight-bold">
-                {post.user.name + " " + post.user.surname}
+                {post.user[0].name + " " + post.user[0].surname}
               </h5>
-              <h6>{post.user.title}</h6>
-              <h6>{post.user.company}</h6>
+              <h6>{post.user[0].title}</h6>
+              <h6>{post.user[0].company}</h6>
             </div>
             {onMyPosts && 
             <div className="ml-auto d-flex">

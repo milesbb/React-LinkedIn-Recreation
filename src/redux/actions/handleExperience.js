@@ -7,7 +7,13 @@ export const HANDLE_EXPERIENCE_ERROR = "HANDLE_EXPERIENCE_ERROR";
 // DELETE - type, experienceId and userId mandatory
 // POST, PUT - type, userId, experienceId, and data mandatory
 
-export const handleExperiences = (type, userId, experienceId, data, imgData) => {
+export const handleExperiences = (
+  type,
+  userId,
+  experienceId,
+  data,
+  imgData
+) => {
   return async (dispatch, getState) => {
     try {
       dispatch({
@@ -26,9 +32,7 @@ export const handleExperiences = (type, userId, experienceId, data, imgData) => 
       });
 
       let fetchURL =
-        "https://striveschool-api.herokuapp.com/api/profile/" +
-        userId +
-        "/experiences/";
+        process.env.REACT_APP_CYCLIC_URL + "users/" + userId + "/experiences/";
 
       if (type !== "POST") {
         fetchURL = fetchURL + experienceId;
@@ -38,18 +42,12 @@ export const handleExperiences = (type, userId, experienceId, data, imgData) => 
         method: type,
         body: JSON.stringify(data),
         headers: new Headers({
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzMxNjQzOTc2NTM5YzAwMTViNWNkNjkiLCJpYXQiOjE2NjQxODEzMDUsImV4cCI6MTY2NTM5MDkwNX0.KhUolJNoXb0Qw4Ddn9_bNvXY60qoqEiyqDK01VX9OE8",
           "Content-Type": "application/json",
         }),
       };
 
       const deleteConfig = {
         method: "DELETE",
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzMxNjQzOTc2NTM5YzAwMTViNWNkNjkiLCJpYXQiOjE2NjQxODEzMDUsImV4cCI6MTY2NTM5MDkwNX0.KhUolJNoXb0Qw4Ddn9_bNvXY60qoqEiyqDK01VX9OE8",
-        },
       };
 
       const chosenConfig = type === "DELETE" ? deleteConfig : postPutConfig;
@@ -59,16 +57,15 @@ export const handleExperiences = (type, userId, experienceId, data, imgData) => 
       if (response.ok) {
         if (imgData !== null) {
           let imgResponse = await fetch(
-            "https://striveschool-api.herokuapp.com/api/profile/" +
+            process.env.REACT_APP_CYCLIC_URL +
+              "users/" +
               userId +
-              "/experiences/"+experienceId+"/picture",
+              "/experiences/" +
+              experienceId +
+              "/image",
             {
               method: "POST",
               body: imgData,
-              headers: {
-                Authorization:
-                  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzMxNjQzOTc2NTM5YzAwMTViNWNkNjkiLCJpYXQiOjE2NjQxODEzMDUsImV4cCI6MTY2NTM5MDkwNX0.KhUolJNoXb0Qw4Ddn9_bNvXY60qoqEiyqDK01VX9OE8",
-              },
             }
           );
         }

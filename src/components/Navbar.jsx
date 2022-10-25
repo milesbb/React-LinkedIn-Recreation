@@ -246,7 +246,7 @@ const NavFunction = () => {
                       </h6>
                     </div>
                   </div>
-                  <Link to="/profiles/me">
+                  <Link to="/users/me">
                     <Button
                       variant="primary"
                       className="text-primary bg-white font-weight-bold w-75 ml-4 mt-1"

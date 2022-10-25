@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Person = ({ profile, i }) => {
   return (
     <Link
-      to={"/profiles/" + profile._id}
+      to={"/users/" + profile._id}
       className="nav-link"
       style={{ color: "black" }}
     >

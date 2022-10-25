@@ -25,18 +25,13 @@ export const getPosts = (postId) => {
         type: GET_POSTS_ERROR,
         payload: false,
       });
-      let fetchURL = "https://striveschool-api.herokuapp.com/api/posts/";
+      let fetchURL = process.env.REACT_APP_CYCLIC_URL + "/posts/";
 
       if (postId !== "") {
         fetchURL = fetchURL + postId;
       }
       console.log(fetchURL);
-      let response = await fetch(fetchURL, {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzMxNjQzOTc2NTM5YzAwMTViNWNkNjkiLCJpYXQiOjE2NjQxODEzMDUsImV4cCI6MTY2NTM5MDkwNX0.KhUolJNoXb0Qw4Ddn9_bNvXY60qoqEiyqDK01VX9OE8",
-        },
-      });
+      let response = await fetch(fetchURL);
 
       if (response.ok) {
         let posts = await response.json();

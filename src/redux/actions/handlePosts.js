@@ -23,7 +23,7 @@ export const handlePosts = (type, postId, data, imgData) => {
         payload: false,
       });
 
-      let fetchURL = "https://striveschool-api.herokuapp.com/api/posts/";
+      let fetchURL = process.env.REACT_APP_CYCLIC_URL + "posts/";
 
       if (type !== "POST") {
         fetchURL = fetchURL + postId;
@@ -33,40 +33,30 @@ export const handlePosts = (type, postId, data, imgData) => {
         method: type,
         body: JSON.stringify(data),
         headers: new Headers({
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzMxNjQzOTc2NTM5YzAwMTViNWNkNjkiLCJpYXQiOjE2NjQxODEzMDUsImV4cCI6MTY2NTM5MDkwNX0.KhUolJNoXb0Qw4Ddn9_bNvXY60qoqEiyqDK01VX9OE8",
           "Content-Type": "application/json",
         }),
       };
 
       const deleteConfig = {
         method: "DELETE",
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzMxNjQzOTc2NTM5YzAwMTViNWNkNjkiLCJpYXQiOjE2NjQxODEzMDUsImV4cCI6MTY2NTM5MDkwNX0.KhUolJNoXb0Qw4Ddn9_bNvXY60qoqEiyqDK01VX9OE8",
-        },
       };
 
       const chosenConfig = type === "DELETE" ? deleteConfig : postPutConfig;
 
       let response = await fetch(fetchURL, chosenConfig);
-      
-      let responseInfo = await response.json()
-      console.log(responseInfo)
 
-      const relevantPostId = type === "POST" ? responseInfo._id : postId
+      let responseInfo = await response.json();
+      console.log(responseInfo);
+
+      const relevantPostId = type === "POST" ? responseInfo._id : postId;
 
       if (response.ok) {
         if (imgData !== null) {
           let imgResponse = await fetch(
-            "https://striveschool-api.herokuapp.com/api/posts/" + relevantPostId,
+            process.env.REACT_APP_CYCLIC_URL + "posts/" + relevantPostId + "/image",
             {
               method: "POST",
               body: imgData,
-              headers: {
-                Authorization:
-                  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzMxNjQzOTc2NTM5YzAwMTViNWNkNjkiLCJpYXQiOjE2NjQxODEzMDUsImV4cCI6MTY2NTM5MDkwNX0.KhUolJNoXb0Qw4Ddn9_bNvXY60qoqEiyqDK01VX9OE8",
-              },
             }
           );
         }

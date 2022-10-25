@@ -4,8 +4,8 @@ export const GET_PROFILE_INFO_LOADING = "GET_PROFILE_INFO_LOADING";
 export const GET_PROFILES_LIST = "GET_PROFILES_LIST";
 export const GET_CURRENT_USER = "GET_CURRENT_USER";
 export const ON_MY_PROFILE = "ON_MY_PROFILE";
-export const SET_ID_FOR_POSTS = "SET_ID_FOR_POSTS"
-export const GET_UNCUT_PROFILES_LIST = "GET_UNCUT_PROFILES_LIST"
+export const SET_ID_FOR_POSTS = "SET_ID_FOR_POSTS";
+export const GET_UNCUT_PROFILES_LIST = "GET_UNCUT_PROFILES_LIST";
 
 // if userId =
 // "" then returns list of profiles to 'profilesList'
@@ -20,23 +20,19 @@ export const getProfile = (userId) => {
         payload: true,
       });
 
-      let response = await fetch(
-        "https://striveschool-api.herokuapp.com/api/profile/" + userId,
-        {
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzMxNjQzOTc2NTM5YzAwMTViNWNkNjkiLCJpYXQiOjE2NjQxODEzMDUsImV4cCI6MTY2NTM5MDkwNX0.KhUolJNoXb0Qw4Ddn9_bNvXY60qoqEiyqDK01VX9OE8",
-          },
-        }
-      );
+      let response = await fetch(process.env.REACT_APP_CYCLIC_URL + "users/" + userId);
 
       if (response.ok) {
-        let profile = await response.json();
-        if (userId === "") {
 
-          let tempArray2 = profile; 
-          let finalArray2 = tempArray2.slice(0,300)
-          dispatch({type:GET_UNCUT_PROFILES_LIST, payload: finalArray2})
+      
+        let profile = await response.json();
+
+        console.log("TEST SHOW RESPONSE PROFILE: ", profile)
+
+        if (userId === "") {
+          let tempArray2 = profile;
+          let finalArray2 = tempArray2.slice(0, 300);
+          dispatch({ type: GET_UNCUT_PROFILES_LIST, payload: finalArray2 });
           let temArray = profile;
 
           const randomArrayShuffle = (array) => {
@@ -64,10 +60,10 @@ export const getProfile = (userId) => {
             type: GET_CURRENT_USER,
             payload: profile,
           });
-        //   dispatch({
-        //     type: SET_ID_FOR_POSTS,
-        //     payload: profile._id
-        //   })
+          //   dispatch({
+          //     type: SET_ID_FOR_POSTS,
+          //     payload: profile._id
+          //   })
         } else {
           dispatch({
             type: GET_PROFILE_INFO,

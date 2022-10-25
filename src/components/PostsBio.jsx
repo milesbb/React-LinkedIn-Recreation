@@ -39,7 +39,7 @@ const PostsBio = () => {
         <div className="mt-5 mx-auto d-flex w-75">
           <div className="mx-auto">
             <Link
-              to="/profiles/me"
+              to="/users/me"
               className="nav-link"
               style={{ color: "black" }}
             >

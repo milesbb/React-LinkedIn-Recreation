@@ -15,8 +15,8 @@ function App() {
       <NewNavBar/>
         <Routes>
           <Route path="/" element={<PostsPage />} />
-          <Route path="/profiles/me" element={<ProfilePage />} />
-          <Route path="/profiles/:userId" element={<ProfilePage />} />
+          <Route path="/users/me" element={<ProfilePage />} />
+          <Route path="/users/:userId" element={<ProfilePage />} />
         </Routes>
       </BrowserRouter>
     </div>
