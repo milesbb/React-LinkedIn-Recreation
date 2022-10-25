@@ -53,7 +53,6 @@ const PostsSection = () => {
     }
   }, [postsLoading]);
 
-  console.log(postsLoading, postsError, posts);
 
   return (
     <div>
@@ -90,7 +89,7 @@ const PostsSection = () => {
               <>
                 {myPosts
                   .filter((elem) => {
-                    return elem.username === currentUser.username;
+                    return elem.user[0]._id === process.env.REACT_APP_MY_ID;
                   })
                   .map((mapElem) => {
                     return (

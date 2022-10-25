@@ -30,7 +30,6 @@ export const getPosts = (postId) => {
       if (postId !== "") {
         fetchURL = fetchURL + postId;
       }
-      console.log(fetchURL);
       let response = await fetch(fetchURL);
 
       if (response.ok) {

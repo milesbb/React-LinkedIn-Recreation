@@ -78,8 +78,6 @@ const PostsPage = () => {
       }
     });
 
-    console.log(currentUser)
-
   return (
     <div>
         {loading && <Loading />}

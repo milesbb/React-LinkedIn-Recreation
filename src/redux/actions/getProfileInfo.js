@@ -27,8 +27,6 @@ export const getProfile = (userId) => {
       
         let profile = await response.json();
 
-        console.log("TEST SHOW RESPONSE PROFILE: ", profile)
-
         if (userId === "") {
           let tempArray2 = profile;
           let finalArray2 = tempArray2.slice(0, 300);
