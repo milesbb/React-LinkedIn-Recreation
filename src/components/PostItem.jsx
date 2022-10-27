@@ -1,9 +1,81 @@
+import { useEffect, useState } from "react";
 import { Card, Image } from "react-bootstrap";
 import { Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import DeleteButton from "./DeleteButton";
 import EditButton from "./EditButton";
 
 const PostItem = ({ post, onMyPosts }) => {
+  const currentUser = useSelector((state) => {
+    return state.loadedProfiles.currentUser;
+  });
+
+  const [likedPosts, setLikedPosts] = useState(currentUser.likedPosts);
+  const [postLikes, setPostLikes] = useState(0);
+
+  const toggleLikePost = async () => {
+    try {
+      const response = await fetch(
+        process.env.REACT_APP_CYCLIC_URL +
+          "posts/" +
+          post._id +
+          "/likeToggle/" +
+          process.env.REACT_APP_MY_ID
+      );
+
+      if (response.ok) {
+        const likedPostsInfo = await response.json();
+
+        setLikedPosts(likedPostsInfo.userLikedPosts);
+      } else {
+        console.log("error with fetch toggle like");
+      }
+    } catch (error) {
+      console.log("Error with liking post: ", error);
+    }
+  };
+
+  useEffect(() => {
+    const getPostLikes = async () => {
+      try {
+        const response = await fetch(
+          process.env.REACT_APP_CYCLIC_URL + "posts/" + post._id + "/likes"
+        );
+
+        if (response.ok) {
+          const postLikes = await response.json();
+          setPostLikes(postLikes.postLikes);
+        } else {
+          console.log("error with fetch likes");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getPostLikes();
+  }, []);
+
+  useEffect(() => {
+    const getPostLikes = async () => {
+      try {
+        const response = await fetch(
+          process.env.REACT_APP_CYCLIC_URL + "posts/" + post._id + "/likes"
+        );
+
+        if (response.ok) {
+          const postLikes = await response.json();
+          setPostLikes(postLikes.postLikes);
+        } else {
+          console.log("error with fetch likes");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getPostLikes();
+    console.log("updated post likes", likedPosts, postLikes);
+  }, [likedPosts]);
+
   return (
     <div
       style={{
@@ -28,30 +100,54 @@ const PostItem = ({ post, onMyPosts }) => {
               <h6>{post.user[0].title}</h6>
               <h6>{post.user[0].company}</h6>
             </div>
-            {onMyPosts && 
-            <div className="ml-auto d-flex">
+            {onMyPosts && (
+              <div className="ml-auto d-flex">
                 <EditButton purpose="editPost" data={post} />
                 <DeleteButton purpose="deletePost" id={post._id} />
-            </div>
-            }
-
+              </div>
+            )}
           </div>
         </Card.Title>
         <Card.Text>
           <div className="w-75 ml-4">{post.text}</div>
         </Card.Text>
-        {post._image !== null &&  <Card.Img style={{borderRadius: 0}} variant="top" src={post.image} /> }
+        {post._image !== null && (
+          <Card.Img
+            style={{ borderRadius: 0 }}
+            variant="top"
+            src={post.image}
+          />
+        )}
         <Card.Body>
+          <div className="my-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="#D0E8FF"
+              style={{
+                background: "#378FE9",
+                borderRadius: "500px",
+                backgroundSize: "40px 40px",
+              }}
+              className="bi bi-hand-thumbs-up-fill"
+              viewBox="0 0 16 16"
+            >
+              <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z" />
+            </svg>
+            {postLikes}
+          </div>
           <Button
             variant="light"
             className="w-25"
             style={{ fontSize: "0.8rem", borderRadius: "5px 0px 0px 5px" }}
+            onClick={toggleLikePost}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
               height="16"
-              fill="currentColor"
+              fill={likedPosts.includes(post._id) ? "#4287f5" : "currentColor"}
               className="bi bi-hand-thumbs-up"
               viewBox="0 0 16 16"
             >
