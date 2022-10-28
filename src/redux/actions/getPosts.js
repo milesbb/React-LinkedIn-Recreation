@@ -25,7 +25,7 @@ export const getPosts = (postId) => {
         type: GET_POSTS_ERROR,
         payload: false,
       });
-      let fetchURL = process.env.REACT_APP_CYCLIC_URL + "/posts/";
+      let fetchURL = process.env.REACT_APP_CYCLIC_URL + "posts/";
 
       if (postId !== "") {
         fetchURL = fetchURL + postId;

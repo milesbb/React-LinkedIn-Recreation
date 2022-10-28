@@ -106,6 +106,15 @@ const ProfilePage = () => {
                   userId={isOnMyProfile ? currentUser._id : profile._id}
                 />
               )}
+
+          {/* -------skill section goes here---------     */} 
+          
+
+
+
+
+
+
             </Col>
             <Col sm={12} md={4} lg={3}>
               <SideProfiles />
