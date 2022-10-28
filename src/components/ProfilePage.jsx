@@ -10,6 +10,7 @@ import ExperiencesSection from "./ExperiencesSection";
 import Loading from "./Loading";
 import ProfileFooter from "./ProfileFooter";
 import SideProfiles from "./SideProfiles";
+import Skills from "./skills";
 import Warning from "./Warning";
 
 //   test /profiles/5fc4ae95b708c200175de88d
@@ -102,18 +103,17 @@ const ProfilePage = () => {
               {/* <Link to="/profiles/me">back to currentuser</Link>
               <Link to="/">to posts section</Link> */}
               {(profile || currentUser) && (
+                <>
                 <ExperiencesSection
                   userId={isOnMyProfile ? currentUser._id : profile._id}
                 />
+                <Skills userId={isOnMyProfile ? currentUser._id : profile._id} />
+                </>
               )}
 
-          {/* -------skill section goes here---------     */} 
+          {/* -------skill section goes here---------     */}
           
-
-
-
-
-
+          
 
             </Col>
             <Col sm={12} md={4} lg={3}>
