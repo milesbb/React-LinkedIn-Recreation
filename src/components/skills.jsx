@@ -4,16 +4,16 @@ import EditButton from "./EditButton";
 import { ListGroupItem } from "react-bootstrap";
 
 const Skills = ({ userId }) => {
+  const [skills, setSkills] = useState([]);
+
   const getSkills = async () => {
     const response = await fetch("http://localhost:3001/skills/" + userId);
     const data = await response.json();
     setSkills(data);
   };
 
-  const [skills, setSkills] = useState([]);
-
   useEffect(() => {
-    const skills = getSkills();
+    getSkills();
   }, []);
 
   return (
@@ -71,7 +71,7 @@ const Skills = ({ userId }) => {
                     />
                     <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z" />
                   </svg>
-                  <p className="ml-2">Endorsements</p>
+                  <p className="ml-2"> Endorsements</p>
                 </div>
                 <hr />
               </div>
