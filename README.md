@@ -1,4 +1,4 @@
-# React LinkedIn Project Frontend
+# 💼 React LinkedIn Project Frontend
 
 LinkedIn React recreation with redux and Node.js backend
 
